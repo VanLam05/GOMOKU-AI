@@ -24,7 +24,7 @@ def minimax(board,list_move, depth, color, alpha, beta, isMaximizing):
     if heuristic.checkWin(board, base.yourColor):
         return -1000000 + depth
 
-    if depth == MAX_DEPTH:
+    if depth == MAX_DEPTH - (len(list_move) >= 25):
         return heuristic.heuristicc(board)
     
     antiColor = base.getAntiColor(color)
