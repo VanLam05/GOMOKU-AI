@@ -3,7 +3,7 @@ import pygame
 import alpha_beta
 import heuristic
 import base
-
+import time
 
 def draw_board(board):
     for i in range(base.GIRD_SIZE):
@@ -39,9 +39,8 @@ def choose_turn(screen):
     button_font = pygame.font.SysFont("arial", 36)
 
     while True:
-        screen.fill((245, 245, 245))  # Nền sáng
+        screen.fill(base.BOARD_COLOR)
 
-        # Tiêu đề
         title_text = font.render("Who goes first?", True, (30, 30, 30))
         title_rect = title_text.get_rect(center=(width // 2, height // 4))
         screen.blit(title_text, title_rect)
@@ -108,9 +107,6 @@ def main():
                 if board[i][j] == base.yourColor or board[i][j] == base.AI_color:
                     draw_caro(screen, i, j, board[i][j])
         
-        
-        
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -126,6 +122,13 @@ def main():
                 list_move.append((x, y))
 
                 if heuristic.checkWin(board, base.yourColor):
+                    draw_board_pygame(screen)
+
+                    for i in range(base.GIRD_SIZE):
+                        for j in range(base.GIRD_SIZE):
+                            if board[i][j] == base.yourColor or board[i][j] == base.AI_color:
+                                draw_caro(screen, i, j, board[i][j])
+
                     show_result(screen, "You Win!")
                     pygame.quit()
                     sys.exit()
@@ -135,11 +138,22 @@ def main():
                     pygame.quit()
                     sys.exit()
 
+                start_time = time.time()
                 ai_move = alpha_beta.alpha_beta(board, list_move, 0, base.AI_color)
+                end_time = time.time()
+                print(f"AI move time: {end_time - start_time:.2f} seconds")
+
                 board[ai_move[0]][ai_move[1]] = base.AI_color
                 list_move.append(ai_move)
 
                 if heuristic.checkWin(board, base.AI_color):
+                    
+                    draw_board_pygame(screen)
+                    for i in range(base.GIRD_SIZE):
+                        for j in range(base.GIRD_SIZE):
+                            if board[i][j] == base.yourColor or board[i][j] == base.AI_color:
+                                draw_caro(screen, i, j, board[i][j])
+
                     show_result(screen, "AI Wins!")
                     pygame.quit()
                     sys.exit()
@@ -148,6 +162,7 @@ def main():
                     show_result(screen, "It's a Draw!")
                     pygame.quit()
                     sys.exit()
+
         
         pygame.display.flip()
         clock.tick(30)

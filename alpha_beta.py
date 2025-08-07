@@ -58,9 +58,6 @@ def minimax(board,list_move, depth, color, alpha, beta, isMaximizing):
     else:
         return minScore
 
-
-
-
 def alpha_beta(board, list_move, depth, color):
 
     antiColor = base.getAntiColor(color)

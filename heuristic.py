@@ -71,15 +71,24 @@ def evaluate_Window(window):
 
     if (aiCount > 0 and playerCount > 0):
         return 0
-    if aiCount == 4 and emptyCount == 1: return 10000
-    if aiCount == 3 and emptyCount == 2: return 500
-    if aiCount == 3 and emptyCount == 1: return 200
-    if aiCount == 2 and emptyCount == 3: return 50
+    if aiCount == 4 and emptyCount == 2: return 10000
+    if aiCount == 4 and emptyCount == 1: return 1000
+    if aiCount == 4 and emptyCount == 0: return 500
+    if aiCount == 3 and emptyCount == 2: return 1000
+    if aiCount == 3 and emptyCount == 1: return 500
+    if aiCount == 3 and emptyCount == 0: return 100
+    if aiCount == 2 and emptyCount == 2: return 50
+    if aiCount == 2 and emptyCount == 1: return 10
 
-    if playerCount == 4 and emptyCount == 1: return -10000 * base.gamma
-    if playerCount == 3 and emptyCount == 2: return -500 * base.gamma 
-    if playerCount == 3 and emptyCount == 1: return -200 * base.gamma
-    if playerCount == 2 and emptyCount == 3: return -50 * base.gamma
+    if playerCount == 4 and emptyCount == 2: return -10000 * base.gamma
+    if playerCount == 4 and emptyCount == 1: return -1000 * base.gamma
+    if playerCount == 4 and emptyCount == 0: return -500 * base.gamma
+    if playerCount == 3 and emptyCount == 2: return -1000 * base.gamma
+    if playerCount == 3 and emptyCount == 1: return -500 * base.gamma
+    if playerCount == 3 and emptyCount == 0: return -100 * base.gamma
+    if playerCount == 2 and emptyCount == 2: return -50 * base.gamma
+    if playerCount == 2 and emptyCount == 1: return -10 * base.gamma
+    
     return 0
 
 def heuristicc(board):
